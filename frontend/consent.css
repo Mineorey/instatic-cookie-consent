@@ -1,0 +1,116 @@
+/*! instatic.consent 1.2.4 | MIT */
+/* First layer: the library's equalWeightButtons only equalises "accept" and
+   "reject"; "settings" keeps the secondary look. All three must look alike. */
+#cc-main .cm .cm__btns .cm__btn--secondary {
+  background: var(--cc-btn-primary-bg); border-color: var(--cc-btn-primary-border-color); color: var(--cc-btn-primary-color);
+}
+#cc-main .cm .cm__btns .cm__btn--secondary:hover {
+  background: var(--cc-btn-primary-hover-bg); border-color: var(--cc-btn-primary-hover-border-color); color: var(--cc-btn-primary-hover-color);
+}
+/* ...and the same width: flatten the library's two button groups so all
+   three buttons share one flex row (desktop) or one column (mobile). */
+#cc-main .cm .cm__btns { gap: .375rem; }
+#cc-main .cm .cm__btns .cm__btn-group { display: contents !important; }
+#cc-main .cm .cm__btns .cm__btn { margin: 0 !important; }
+@media screen and (min-width: 641px) {
+  #cc-main .cm--wide .cm__btns .cm__btn { flex: 1 1 0; min-width: 0; }
+  /* layouts "wide" (cloud) and "bar": buttons stacked beside the text */
+  #cc-main .cm--cloud .cm__btns .cm__btn, #cc-main .cm--bar.cm--inline .cm__btns .cm__btn { min-width: 12em; }
+}
+#cc-main .cc-svc { display: block; margin-top: 1em; }
+#cc-main .cm__btn:focus-visible, #cc-main .pm__btn:focus-visible, #cc-main a:focus-visible { outline: 3px solid var(--cc-btn-primary-bg); outline-offset: 2px; }
+.cc-embed {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; min-height: 180px; box-sizing: border-box; padding: 24px;
+  background: #f2f2f2; color: #1a1a1a; border-radius: 8px; text-align: center;
+  font: inherit;
+}
+.cc-embed[hidden] { display: none; }
+.cc-embed__inner { max-width: 520px; }
+.cc-embed__title { font-weight: 700; margin: 0 0 8px; }
+.cc-embed__text { margin: 0 0 16px; line-height: 1.5; }
+.cc-embed__actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.cc-embed__btn {
+  font: inherit; font-weight: 700; cursor: pointer; padding: 10px 16px; border-radius: 999px;
+  border: 2px solid var(--cc-btn-primary-bg, #1a1a1a); background: var(--cc-btn-primary-bg, #1a1a1a);
+  color: var(--cc-btn-primary-color, #fff);
+}
+.cc-embed__btn:focus-visible, .cc-embed a:focus-visible { outline: 3px solid currentColor; outline-offset: 2px; }
+.cc-embed__links { margin: 12px 0 0; font-size: .9em; }
+.cc-embed a { color: inherit; text-decoration: underline; }
+
+/* Cookie icon before the banner title (decorative). The body takes the
+   accent colour; the chips are dark with a rim in the button text colour
+   (kept in contrast to the accent by the theme), so they show on light and
+   dark accents alike. */
+#cc-main .cc-icon { display: inline-block; width: 1.6em; height: 1.6em; margin-right: .45em; vertical-align: -.45em; flex: none; overflow: visible }
+#cc-main .cc-icon__body { fill: var(--cc-btn-primary-bg); stroke: var(--cc-primary-color); stroke-opacity: .35; stroke-width: 1; stroke-linejoin: round }
+#cc-main .cc-icon__chip { fill: #3b2414; fill: color-mix(in srgb, var(--cc-btn-primary-bg) 30%, #2a160a); stroke: var(--cc-btn-primary-color); stroke-width: .9; stroke-opacity: .85 }
+
+/* "Learn more" link in the first-layer text */
+#cc-main .cm__desc .cc-more { white-space: nowrap; text-decoration: underline; text-underline-offset: .15em }
+
+/* Check mode panel (#cc-scan, consent-scan.js). Same z-index as the library
+   (the maximum); it is appended after #cc-main, so it stays on top. */
+.cc-scan {
+  position: fixed; bottom: 16px; right: 16px; z-index: 2147483647;
+  width: min(420px, calc(100vw - 32px)); max-height: 70vh; overflow: auto; box-sizing: border-box;
+  padding: 16px; background: #fff; color: #1a1a18; border: 1px solid #6b6b66; border-radius: 12px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, .18); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  text-align: left; overflow-wrap: break-word;
+}
+.cc-scan *, .cc-scan *::before, .cc-scan *::after { box-sizing: border-box; }
+.cc-scan h2, .cc-scan h3, .cc-scan p, .cc-scan ul { margin: 0; padding: 0; font: inherit; color: inherit; letter-spacing: normal; text-transform: none; }
+.cc-scan h2 { font-size: 16px; font-weight: 700; }
+.cc-scan h3 { font-weight: 700; margin-top: 14px; margin-bottom: 4px; }
+.cc-scan p + p { margin-top: 2px; }
+.cc-scan ul { list-style: disc; padding-left: 1.25em; }
+.cc-scan li { margin: 2px 0; }
+.cc-scan__summary { margin-top: 4px; font-weight: 700; }
+.cc-scan__n--violation, .cc-scan__v--violation, .cc-scan__list--violation { color: #b00020; }
+.cc-scan__n--check, .cc-scan__v--check { color: #7a5a00; }
+.cc-scan__n--ok, .cc-scan__v--ok { color: #1f6f2b; }
+.cc-scan__n::before { content: ""; display: inline-block; width: .7em; height: .7em; margin-right: .3em; border-radius: 50%; background: currentColor; vertical-align: -.05em; }
+.cc-scan__host { overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 13px; }
+.cc-scan__note { margin-top: 6px; font-size: 13px; color: #4a4a46; }
+.cc-scan__actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.cc-scan__actions button {
+  font: inherit; font-weight: 600; cursor: pointer; padding: 6px 12px; min-height: 32px; border-radius: 8px;
+  border: 1px solid #1a1a18; background: #fff; color: #1a1a18;
+}
+.cc-scan__actions button:hover { background: #f0f0ee; }
+.cc-scan button:focus-visible, .cc-scan textarea:focus-visible, .cc-scan__title:focus-visible { outline: 3px solid #005fcc; outline-offset: 2px; }
+.cc-scan__title:focus:not(:focus-visible) { outline: none; }
+.cc-scan__status:empty { display: none; }
+.cc-scan__status { margin-top: 6px; }
+.cc-scan__body[hidden], .cc-scan__copy[hidden] { display: none; }
+.cc-scan__copy textarea { display: block; width: 100%; margin-top: 10px; font: 12px/1.4 ui-monospace, Consolas, monospace; color: #1a1a18; background: #fff; border: 1px solid #6b6b66; border-radius: 6px; }
+.cc-scan__table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.cc-scan__table th, .cc-scan__table td { padding: 4px 6px 4px 0; text-align: left; vertical-align: top; border-bottom: 1px solid #d6d6d2; }
+.cc-scan__table th { font-weight: 700; }
+@media (max-width: 479.98px) {
+  .cc-scan { left: 8px; right: 8px; bottom: 8px; width: auto; padding: 12px; }
+}
+
+/* Notice shown when the settings cannot be opened (e.g. the browser blocks
+   the banner library). Accent colour and radius come from the style settings. */
+.cc-notice {
+  position: fixed; z-index: 2147483000; left: 50%; bottom: 16px; transform: translateX(-50%);
+  box-sizing: border-box; width: min(480px, calc(100vw - 32px));
+  display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+  background: #fff; color: #1a1a18; border: 1px solid #6b6b66;
+  border-radius: var(--cc-modal-border-radius, 12px);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, .25);
+  font: 15px/1.45 var(--cc-font-family, system-ui, sans-serif);
+}
+.cc-notice__text { margin: 0; flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
+.cc-notice__btn {
+  flex: none; font: inherit; font-weight: 700; cursor: pointer; padding: 8px 14px; min-height: 36px;
+  border-radius: var(--cc-btn-border-radius, 999px);
+  border: 2px solid var(--cc-btn-primary-bg, #1a1a1a); background: var(--cc-btn-primary-bg, #1a1a1a);
+  color: var(--cc-btn-primary-color, #fff);
+}
+.cc-notice__btn:focus-visible { outline: 3px solid #005fcc; outline-offset: 2px; }
+@media (max-width: 479.98px) {
+  .cc-notice { bottom: 8px; width: calc(100vw - 16px); flex-wrap: wrap; }
+}

@@ -1,0 +1,69 @@
+{
+  "id": "instatic.consent",
+  "name": "Cookie Consent",
+  "version": "1.2.4",
+  "apiVersion": 1,
+  "description": "Cookie-Banner & Consent-Management für Instatic (DSGVO/TDDDG): blockiert YouTube, Google, Meta & Co. bis zur Einwilligung, Platzhalter, Scanner. Cookie banner and consent manager (GDPR/ePrivacy).",
+  "permissions": ["frontend.assets", "cms.hooks", "cms.storage", "cms.routes", "admin.navigation"],
+  "entrypoints": { "server": "server/index.js" },
+  "resources": [
+    {
+      "id": "versions",
+      "title": "Consent versions",
+      "singularLabel": "Version",
+      "pluralLabel": "Versions",
+      "fields": [
+        { "id": "revision", "label": "Revision", "type": "number", "required": true },
+        { "id": "createdAt", "label": "Created at", "type": "text" },
+        { "id": "summary", "label": "Summary", "type": "text" },
+        { "id": "fingerprint", "label": "Fingerprint", "type": "text", "required": true }
+      ]
+    },
+    {
+      "id": "version-snapshots",
+      "title": "Consent version snapshots",
+      "singularLabel": "Snapshot",
+      "pluralLabel": "Snapshots",
+      "fields": [
+        { "id": "revision", "label": "Revision", "type": "number", "required": true },
+        { "id": "snapshot", "label": "Configuration snapshot", "type": "longtext" }
+      ]
+    },
+    {
+      "id": "scan",
+      "title": "Consent scan",
+      "singularLabel": "Host",
+      "pluralLabel": "Hosts",
+      "fields": [
+        { "id": "host", "label": "Host", "type": "text", "required": true },
+        { "id": "status", "label": "Status", "type": "text" },
+        { "id": "kinds", "label": "Types", "type": "text" },
+        { "id": "pages", "label": "Pages", "type": "longtext" },
+        { "id": "service", "label": "Service", "type": "text" },
+        { "id": "hint", "label": "Hint", "type": "text" },
+        { "id": "suggestion", "label": "Custom service suggestion (JSON)", "type": "longtext" },
+        { "id": "firstSeen", "label": "First seen", "type": "text" },
+        { "id": "lastSeen", "label": "Last changed", "type": "text" },
+        { "id": "generation", "label": "Generation", "type": "number" }
+      ]
+    }
+  ],
+  "adminPages": [
+    { "id": "scan", "title": "Consent scan", "navLabel": "Consent scan", "content": { "kind": "resource", "heading": "Scan results", "resource": "scan" } },
+    { "id": "versions", "title": "Consent versions", "navLabel": "Consent versions", "content": { "kind": "resource", "heading": "Consent versions", "resource": "versions" } }
+  ],
+  "frontend": {
+    "assets": [
+      { "kind": "style", "href": "frontend/cookieconsent.css", "placement": "head-end" },
+      { "kind": "style", "href": "frontend/consent.css", "placement": "head-end" },
+      { "kind": "script", "src": "frontend/consent.js", "placement": "head", "strategy": "sync" },
+      { "kind": "script", "src": "frontend/cookieconsent.umd.js", "placement": "head", "strategy": "defer" }
+    ]
+  },
+  "settings": [],
+  "license": "MIT",
+  "author": { "name": "FilmOrbit", "url": "https://filmorbit.de" },
+  "repository": "https://github.com/Mineorey/instatic-cookie-consent",
+  "icon": "icon.svg",
+  "keywords": ["cookie-consent", "cookie-banner", "cookies", "consent", "dsgvo", "gdpr", "tdddg", "eprivacy", "datenschutz", "privacy", "cmp", "cookie-hinweis", "youtube", "google-analytics", "meta-pixel", "csp", "instatic"]
+}

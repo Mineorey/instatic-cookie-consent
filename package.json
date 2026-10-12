@@ -1,0 +1,42 @@
+{
+  "name": "instatic-cookie-consent",
+  "version": "1.2.4",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT",
+  "description": "Cookie consent and third-party blocking plugin for the Instatic CMS",
+  "author": {
+    "name": "FilmOrbit",
+    "url": "https://filmorbit.de"
+  },
+  "homepage": "https://github.com/Mineorey/instatic-cookie-consent",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mineorey/instatic-cookie-consent.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Mineorey/instatic-cookie-consent/issues"
+  },
+  "keywords": [
+    "instatic",
+    "instatic-plugin",
+    "cookie-consent",
+    "cookie-banner",
+    "dsgvo",
+    "gdpr",
+    "tdddg"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test \"test/unit/*.test.mjs\"",
+    "test:browser": "npm run build && node --test --test-concurrency=1 \"test/browser/*.test.mjs\""
+  },
+  "devDependencies": {
+    "axe-core": "^4.14.0",
+    "fflate": "^0.8.3",
+    "playwright-core": "^1.64.0"
+  }
+}

@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; frame-src 'none'; img-src 'self' data: https:; script-src 'self'; style-src 'self' 'unsafe-inline'">
+<title>Frame hosts</title>
+<!--ASSETS-->
+</head>
+<body>
+<h1>Frame hosts</h1>
+<!-- frame hosts of active services, but no service pattern: never loadable -->
+<iframe id="playlist" src="https://www.youtube.com/embed?listType=playlist&amp;list=x"></iframe>
+<iframe id="recaptcha" src="https://www.google.com/recaptcha/api2/anchor?k=1"></iframe>
+<!-- regular embed: blocked with a load button -->
+<iframe id="regular" src="https://www.youtube.com/embed/abc"></iframe>
+<div id="dyn"></div>
+</body>
+</html>

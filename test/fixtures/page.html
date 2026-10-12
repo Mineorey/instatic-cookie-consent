@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; frame-src 'none'; img-src 'self' data: https:; script-src 'self'; style-src 'self' 'unsafe-inline'">
+<title>Fixture</title>
+<!--ASSETS-->
+</head>
+<body>
+<h1>Test</h1>
+<a href="/datenschutz">Datenschutz</a> <a href="/impressum">Impressum</a>
+<iframe id="static-yt" src="https://www.youtube.com/embed/abc" title="Video" width="560" height="315" allow="autoplay" allowfullscreen></iframe>
+<iframe id="static-vimeo" src="https://player.vimeo.com/video/1"></iframe>
+<button id="dyn" data-yt="https://www.youtube.com/embed/def?autoplay=1">Video abspielen</button>
+<div id="dyn-target"></div>
+<button id="inner">innerHTML-Video</button>
+<div id="inner-target"></div>
+<button id="busy-inner">innerHTML + busy</button>
+<div id="busy-inner-target"></div>
+<button id="busy-adjacent">insertAdjacentHTML + busy</button>
+<div id="busy-adjacent-target"></div>
+<button id="busy-ns">setAttributeNS + busy</button>
+<div id="busy-ns-target"></div>
+<button id="busy-outer">outerHTML + busy</button>
+<div id="busy-outer-target"><span id="outer-slot"></span></div>
+<!-- deliberate unblocked third-party image (no catalog service) for the check mode tests -->
+<img id="leak" src="https://leak.example.net/pixel.png" alt="">
+<footer><a id="settings" href="#cookie-einstellungen">Cookie-Einstellungen</a></footer>
+<script src="/fixtures/site-like.js"></script>
+</body>
+</html>
