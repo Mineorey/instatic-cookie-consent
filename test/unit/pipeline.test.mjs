@@ -1,5 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
+import { assertLinear } from './linear.mjs'
 import { buildConfig } from '../../server/lib/config.js'
 import { processPage, failSafe, markError } from '../../server/lib/pipeline.js'
 
@@ -64,9 +65,8 @@ test('markError is idempotent', () => {
 })
 
 test('failSafe stays fast on pathological html and fails closed on over-long tags', () => {
-  const t0 = Date.now()
+  assertLinear('failSafe', (k) => '<iframe src=x '.repeat(90000 * k), (html) => failSafe(html))
   const bad = failSafe('<iframe src=x '.repeat(90000))
-  assert.ok(Date.now() - t0 < 3000, `took ${Date.now() - t0} ms`)
   assert.ok(bad.startsWith('<iframe src="about:blank" data-cc-unparsed'))
   // an over-long tag with an absolute src: the leading about:blank wins
   const long = failSafe('<iframe ' + 'a="b" '.repeat(5000) + 'src="https://evil.example/x"></iframe><iframe src="https://ok.example/y"></iframe>')

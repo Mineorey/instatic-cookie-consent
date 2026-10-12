@@ -6,6 +6,12 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [Unreleased]
+
+### Changed
+- Timing tests check linear growth instead of absolute time limits (stable on busy CI machines).
+- CI runs on pushes to `main` and on pull requests only; actions updated to checkout/setup-node v7.
+
 ## [1.2.4] - 2026-10-12
 
 ### Changed

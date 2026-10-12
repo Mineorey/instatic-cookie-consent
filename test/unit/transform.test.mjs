@@ -1,5 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
+import { assertLinear } from './linear.mjs'
 import { buildConfig } from '../../server/lib/config.js'
 import { transform } from '../../server/lib/transform.js'
 import { readFileSync } from 'node:fs'
@@ -130,10 +131,9 @@ test('bounded tag parsing keeps the output of valid markup unchanged (golden fil
 })
 
 test('pathological broken html stays fast in the transform', () => {
-  for (const html of ['<iframe src=x '.repeat(90000), '<script '.repeat(90000), '<script>'.repeat(30000), '<iframe a="'.repeat(60000)]) {
-    const t = Date.now()
-    transform(html, svc({ svc_youtube: true }))
-    assert.ok(Date.now() - t < 1500, `too slow: ${html.slice(0, 14)}`)
+  const s = svc({ svc_youtube: true })
+  for (const [unit, n] of [['<iframe src=x ', 90000], ['<script ', 90000], ['<script>', 30000], ['<iframe a="', 60000]]) {
+    assertLinear(`transform ${unit}`, (k) => unit.repeat(n * k), (html) => transform(html, s))
   }
 })
 

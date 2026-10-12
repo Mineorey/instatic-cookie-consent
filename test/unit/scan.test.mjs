@@ -1,5 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
+import { assertLinear } from './linear.mjs'
 import { buildConfig } from '../../server/lib/config.js'
 import { scanHtml, classifyFinding, suggestService } from '../../server/lib/scan.js'
 
@@ -90,17 +91,17 @@ test('suggested custom service is accepted by buildConfig', () => {
 
 test('pathological broken html stays fast and does not throw', () => {
   const inputs = [
-    '<a '.repeat(65000),
-    '<img src=x '.repeat(90000),
-    '<style>'.repeat(30000),
-    '<script>'.repeat(30000),
-    '<!-- ' + '<img src="https://z.example.com/a.png">',
+    ['<a ', 65000],
+    ['<img src=x ', 90000],
+    ['<style>', 30000],
+    ['<script>', 30000],
   ]
-  for (const html of inputs) {
-    const t = Date.now()
-    assert.doesNotThrow(() => scanHtml(html, svcs()))
-    assert.ok(Date.now() - t < 1500, `too slow: ${html.slice(0, 20)}`)
+  const s = svcs()
+  for (const [unit, n] of inputs) {
+    assert.doesNotThrow(() => scanHtml(unit.repeat(n), s))
+    assertLinear(`scan ${unit}`, (k) => unit.repeat(n * k), (html) => scanHtml(html, s))
   }
+  assert.doesNotThrow(() => scanHtml('<!-- ' + '<img src="https://z.example.com/a.png">', s))
 })
 
 test('long attribute values (inline styles, srcset) are still scanned', () => {
